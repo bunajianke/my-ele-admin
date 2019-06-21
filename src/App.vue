@@ -20,7 +20,5 @@ export default {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 }
-.scrollbar-wrapper {
-    overflow-x: hidden !important;
-}
+
 </style>

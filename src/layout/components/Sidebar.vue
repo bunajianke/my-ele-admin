@@ -13,6 +13,7 @@
                 background-color="#393E46"
                 text-color="#fff"
                 active-text-color="#ffd04b"
+                :router="true"
             >
                 <el-submenu index="1">
                     <template slot="title">
@@ -21,7 +22,7 @@
                     </template>
                     <el-menu-item-group>
                         <template slot="title">分组一</template>
-                        <el-menu-item index="1-1">选项1</el-menu-item>
+                        <el-menu-item index="/dashboard">选项1</el-menu-item>
                         <el-menu-item index="1-2">选项2</el-menu-item>
                     </el-menu-item-group>
                     <el-menu-item-group title="分组2">
@@ -44,11 +45,11 @@
                     <i class="el-icon-setting"></i>
                     <span slot="title">导航四</span>
                 </el-menu-item>
-                <!-- <el-menu-item index="4">
+                <el-menu-item index="4">
                     <i class="el-icon-setting"></i>
                     <span slot="title">导航四</span>
                 </el-menu-item>
-                <el-menu-item index="4">
+                <!-- <el-menu-item index="4">
                     <i class="el-icon-setting"></i>
                     <span slot="title">导航四</span>
                 </el-menu-item>

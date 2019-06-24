@@ -1,5 +1,5 @@
 <template>
-    <div class="menu-wrapper">
+    <div v-if="!item.hidden" class="menu-wrapper">
         <!-- 嵌套子菜单 -->
         <!-- <el-submenu index="1">
             <template slot="title">
@@ -26,25 +26,85 @@
             <span slot="title">导航二</span>
         </el-menu-item> -->
 
-        <el-menu-item index="">
+        <el-menu-item v-if="hasOneShowingChild(item.children, item) && (!onlyOneChild.children || onlyOneChild.noShowingChildren) && !item.alwaysShow" :index="resolvePath(item.path)">
             <i class="el-icon-menu"></i>
             <span slot="title">123</span>
         </el-menu-item>
+
+        <el-submenu v-else :index="resolvePath(item.path)">
+            <template slot="title">
+                <i class="el-icon-menu"></i>
+                132
+            </template>
+            <sidebar-item
+                v-for="child in item.children"
+                :key="child.path"
+                :is-nest="true"
+                :item="child"
+                :base-path="resolvePath(child.path)"
+                class="nest-menu"
+            />
+        </el-submenu>
     </div>
 </template>
 
 <script>
+import path from 'path'
 export default {
     name: 'SidebarItem',
     props: {
         item: {
             type: Object,
             required: true
+        },
+        isNest: {
+            type: Boolean,
+            default: false
+        },
+        basePath: {
+            type: String,
+            default: ''
+        }
+    },
+    data() {
+        this.onlyOneChild = null
+        return {}
+    },
+    methods: {
+        // 路由的子路由的 hidden 属性为 false 的时候，代表有要显示的子菜单
+        hasOneShowingChild(children = [], parent) {
+            const showingChildren = children.filter(item => {
+                if(item.hidden) {
+                    return false
+                } else {
+                    this.onlyOneChild = item
+                    console.log(this.onlyOneChild.path)
+                    return true
+                }
+            })
+
+            console.log(showingChildren)
+
+            // 只有一个要显示的子路由，直接替代夫路由显示
+            if(showingChildren.length === 1) {
+                // console.log('一个子路由')
+                return true
+            }
+
+            // 没有子路由的，直接显示父级路由
+            if(showingChildren.length === 0) {
+                // console.log('零个子路由')
+                this.onlyOneChild = { ...parent, path: '', noShowingChildren: true }
+                return true
+            }
+            return false
+        },
+        resolvePath(routePath) {
+            return path.resolve(this.basePath, routePath)
         }
     },
     mounted() {
-        // console.log(this.item);
-        
+        this.hasOneShowingChild(this.item.children, this.item)
     }
 }
 </script>

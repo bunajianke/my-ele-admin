@@ -15,7 +15,7 @@
                 active-text-color="#ffd04b"
                 :router="true"
             >
-                <SidebarItem v-for="(route) in permission_routes" :key="route.path" :item="route" />
+                <SidebarItem v-for="(route) in permission_routes" :key="route.path" :item="route" :base-path="route.path" />
             </el-menu>
         </el-scrollbar>
     </div>
@@ -44,7 +44,7 @@ export default {
         }
     },
     mounted() {
-        
+        // console.log(this.permission_routes)
     },
     computed: {
         ...mapGetters(["sidebar", "permission_routes"]),

@@ -11,7 +11,7 @@ export const baseRoutes = [
     component: Layout,
     redirect: '/dashboard',
     name: 'layout',
-    hidden: true,
+    hidden: false,
     meta: {
       title: '首页'
     },

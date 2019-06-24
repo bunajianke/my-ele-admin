@@ -3,13 +3,15 @@ import Router from 'vue-router'
 import HelloWorld from '@/components/HelloWorld'
 import Layout from '@/layout/index'
 
-Vue.use(Router)
+Vue.use(Router);
 
 export const baseRoutes = [
   {
     path: '/',
-    name: 'Layout',
     component: Layout,
+    redirect: '/dashboard',
+    name: 'layout',
+    hidden: true,
     meta: {
       title: '首页'
     },
@@ -27,6 +29,7 @@ export const baseRoutes = [
   {
     path: '/login',
     name: 'login',
+    hidden: true,
     component: () => import('@/views/login'),
     meta: {
       title: '登录'
@@ -35,6 +38,7 @@ export const baseRoutes = [
   {
     path: '/404',
     name: '404',
+    hidden: true,
     component: () => import('@/views/404'),
     meta: {
       title: '404'
@@ -44,27 +48,37 @@ export const baseRoutes = [
 
 export const asyncRoutes = [
   {
+    path: '/icon',
+    component: Layout,
+    redirect: '/icon/index',
+    children: [
+      {
+        path: 'index',
+        component: () => import('@/views/icon/icon'),
+        meta: {
+          title: '图标',
+          roles: ['admin']
+        }
+      }
+    ]
+  },
+  {
     path: '/permission',
+    name: 'permission',
     component: Layout,
     redirect: '/permission/page',
     alwaysShow: true,
-    name: 'permission',
-    mate: {
-      title: '权限',
-      roles: ['admin', 'editor']
-    },
     children: [
       {
         path: 'page',
         component: () => import('@/views/permission/page'),
-        name: 'permissionPage',
         meta: {
           title: '权限页面',
           roles: ['admin']
         }
       },
       {
-        path: '/role',
+        path: 'role',
         component: () => import('@/views/permission/role'),
         meta: {
           title: '权限角色',
@@ -77,10 +91,15 @@ export const asyncRoutes = [
 
 const createRouter = () => new Router({
   mode: 'history',
-  routes: baseRoutes,
-  scrollBehavior: () => ({ y: 0 })
+  scrollBehavior: () => ({ y: 0 }),
+  routes: baseRoutes
 })
 
 const router = createRouter()
+
+export function resetRouter() {
+  const newRouter = createRouter()
+  router.matcher = newRouter.matcher
+}
 
 export default router

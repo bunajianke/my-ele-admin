@@ -1,9 +1,13 @@
 <template>
-    <el-row type="flex" justify="space-between">
-        <el-col :span="2">
-            <el-button class="menu-toggle-btn" type="primary" round @click="toggleSidebar">{{ sidebar.opened | text }}</el-button>
+    <el-row type="flex" justify="center">
+        <el-col :span="1">
+            <!-- <el-button class="menu-toggle-btn" type="primary" round @click="toggleSidebar">{{ sidebar.opened | text }}</el-button> -->
+            <i class="el-icon-s-fold" :class="{ 'menu-active': !sidebar.opened }" @click="toggleSidebar"></i>
         </el-col>
-        <el-col :span="22">
+        <el-col :span="13">
+            <Breakcrumb />
+        </el-col>
+        <el-col :span="10">
             <el-menu
                 :default-active="activeIndex2"
                 class="el-menu-main"
@@ -30,22 +34,21 @@
 
 <script>
 import { mapActions, mapGetters } from "vuex";
+import Breakcrumb from '@/components/Breakcrumb'
 export default {
+    components: {
+        Breakcrumb
+    },
     data() {
         return {
             activeIndex: "1",
             activeIndex2: "1",
-            // text: '收起'
         };
     },
     methods: {
         ...mapActions({
             toggleSidebar: 'app/toggleSidebar'
-        }),
-        /* toggle() {
-            this.toggleSidebar();
-            this.text = this.sidebar.opened ? '收起' : '展开';
-        } */
+        })
     },
     computed: {
         ...mapGetters(["sidebar"])
@@ -64,8 +67,20 @@ export default {
     display: flex;
     justify-content: flex-end;
 }
-.menu-toggle-btn {
-    margin-left: 20px;
+.el-col-1 {
+    text-align: center;
+    flex: 1;
+    min-width: 50px;
+}
+.el-icon-s-fold {
+    color: #fff;
+    font-size: 28px;
+    line-height: 60px;
+    cursor: pointer;
+    transition: all .3s;
+}
+.menu-active {
+    transform: rotate(-180deg);
 }
 </style>
 

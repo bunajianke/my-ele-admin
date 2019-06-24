@@ -1,5 +1,5 @@
 <template>
     <div>
-        <h1>这里是permission</h1>
+        ICON
     </div>
 </template>

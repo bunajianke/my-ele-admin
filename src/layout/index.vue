@@ -9,7 +9,6 @@
                     <Header />
                 </el-header>
                 <el-main>
-                    <Breakcrumb />
                     <AppMain/>
                 </el-main>
             </el-container>
@@ -19,29 +18,13 @@
 
 <script>
 import AppMain from "./components/AppMain";
-import Breakcrumb from '@/components/Breakcrumb'
-import Sidebar from './components/Sidebar'
+import Sidebar from './components/Sidebar/Sidebar'
 import Header from './components/Header'
 export default {
     components: {
         AppMain,
-        Breakcrumb,
         Sidebar,
         Header
-    },
-    data() {
-        return {
-            activeIndex: "1",
-            activeIndex2: "1"
-        };
-    },
-    methods: {
-        handleOpen(key, keyPath) {
-            console.log(key, keyPath);
-        },
-        handleClose(key, keyPath) {
-            console.log(key, keyPath);
-        }
     }
 };
 </script>
@@ -62,6 +45,7 @@ export default {
 }
 .el-scrollbar__wrap {
     overflow-x: hidden;
+    overflow-x: hidden !important;    
 }
 .scrollbar-wrapper {
     overflow-x: hidden !important;

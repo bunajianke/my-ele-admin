@@ -30,21 +30,36 @@ const mutations = {
 const actions = {
   userLogin({ commit }, info) {
     return new Promise((resolve, reject) => {
-      login(info).then(res => {
+      /* login(info).then(res => {
         resolve(res);
         if (res.code === "0000") {
           commit("SET_TOKEN", res.data.token);
           setToken(res.data.token);
         }
-      });
+      }); */
+      let token = '62170031'
+      resolve(token)
+      commit('SET_TOKEN', token)
+      setToken(token)
     });
   },
   userInfo({commit}, state) {
+    // dev
+    let roles = ['admin']
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        resolve(roles)
+
+        // dev
+        commit("SET_ROLES", roles);
+
+      }, 1000);
+    })
+
     return new Promise((resolve, reject) => {
         getUserInfo().then(res => {
-            resolve(res)
-            if(res.code === '0000') {
-                
+          if(res) {
+              resolve(res.data)
             }
         });
     })

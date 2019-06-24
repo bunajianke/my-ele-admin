@@ -36,9 +36,12 @@ export default {
             var { formData } = this
             this.userLogin(formData).then(res => {
                 console.log(res)
-                if(res.code == '0000') {
+                // dev
+                this.$router.push({ path: '/' })
+
+                /* if(res.code == '0000') {
                     this.$router.push({ path: '/' })
-                }
+                } */
             })
         }
     }

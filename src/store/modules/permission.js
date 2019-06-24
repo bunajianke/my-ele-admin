@@ -13,10 +13,14 @@ const mutations = {
 
 const actions = {
     generateRoutes({ commit }, roles) {
+        let accessRoutes;
         return new Promise(resolve => {
             if(roles.includes('admin')) {
                 commit("SET_ROUTES", asyncRoutes);
+                accessRoutes = asyncRoutes || [] 
             }
+
+            resolve(accessRoutes)
         })
     }
 }

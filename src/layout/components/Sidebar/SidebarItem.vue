@@ -91,6 +91,9 @@ export default {
 .el-menu--collapse {
     .el-submenu {
         & > .el-submenu__title {
+            & > .el-submenu__icon-arrow {
+                display: none;
+            }
             & > span {
                 height: 0;
                 width: 0;

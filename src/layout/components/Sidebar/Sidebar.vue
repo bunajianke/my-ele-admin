@@ -61,7 +61,7 @@ export default {
     min-height: 400px;
 }
 .side-wrapper {
-    height: calc(100vh - 60px);
+    height: calc(100vh - 137px);
 }
 .el-menu-vertical-side {
     height: 100%;
@@ -83,6 +83,19 @@ export default {
     line-height: 60px;
     text-align: center;
     color: antiquewhite;
+}
+.el-menu--collapse {
+    .el-submenu {
+        & > .el-submenu__title {
+            & > span {
+                height: 0;
+                width: 0;
+                overflow: hidden;
+                visibility: hidden;
+                display: inline-block;
+            }
+        }
+    }
 }
 </style>
 

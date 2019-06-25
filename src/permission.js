@@ -62,10 +62,11 @@ router.beforeEach(async (to, from, next) => {
       next();
     }
   }
-
   document.title = getPageTitle(to.meta.title);
+
 });
 
 router.afterEach(() => {
   NProgress.done();
+
 });

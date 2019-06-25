@@ -1,14 +1,15 @@
 <template>
     <div class="app-container">
         <el-container>
-            <el-aside width="">
-                <Sidebar />
+            <el-aside width>
+                <Sidebar/>
             </el-aside>
             <el-container>
                 <el-header>
-                    <Header />
+                    <Header/>
                 </el-header>
                 <el-main>
+                    <TagView />
                     <AppMain/>
                 </el-main>
             </el-container>
@@ -18,13 +19,15 @@
 
 <script>
 import AppMain from "./components/AppMain";
-import Sidebar from './components/Sidebar/Sidebar'
-import Header from './components/Header'
+import Sidebar from "./components/Sidebar/Sidebar";
+import Header from "./components/Header";
+import TagView from './components/TagView/tagview'
 export default {
     components: {
         AppMain,
         Sidebar,
-        Header
+        Header,
+        TagView
     }
 };
 </script>
@@ -32,11 +35,11 @@ export default {
 <style lang="scss" scoped>
 .el-header {
     padding: initial;
-    background-color: #393E46;
+    background-color: #393e46;
     line-height: 60px;
 }
 .el-aside {
-    background: #393E46;
+    background: #393e46;
     border-right: 1px solid #ccc;
 }
 
@@ -45,7 +48,7 @@ export default {
 }
 .el-scrollbar__wrap {
     overflow-x: hidden;
-    overflow-x: hidden !important;    
+    overflow-x: hidden !important;
 }
 .scrollbar-wrapper {
     overflow-x: hidden !important;

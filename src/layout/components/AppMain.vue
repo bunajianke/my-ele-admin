@@ -8,7 +8,7 @@
 
 <style lang="scss" scoped>
 .app-main {
-    min-height: calc(100vh - 60px);
+    min-height: calc(100vh - 137px);
     box-sizing: border-box;
 }
 </style>

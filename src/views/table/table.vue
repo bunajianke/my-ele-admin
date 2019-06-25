@@ -1,5 +1,5 @@
 <template>
     <div>
-        <h1>pagepagepage</h1>
+        <table>123</table>
     </div>
 </template>

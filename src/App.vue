@@ -26,4 +26,7 @@ export default {
 .el-scrollbar__wrap {
     overflow-x: hidden !important;
 }
+.el-scrollbar__thumb {
+    background-color: rgba(33, 52, 88, 0.45) !important;
+}
 </style>

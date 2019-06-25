@@ -1,10 +1,8 @@
 <template>
     <el-breadcrumb separator-class="el-icon-arrow-right">
-        <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
-        <el-breadcrumb-item :to="{ path: '/dashboard' }">活动管理</el-breadcrumb-item>
-        <el-breadcrumb-item :to="{ path: '/login'}">活动列表</el-breadcrumb-item>
-        <el-breadcrumb-item :to="{ path: '/permission/role'}">角色列表</el-breadcrumb-item>
-        <el-breadcrumb-item>活动详情</el-breadcrumb-item>
+        <el-breadcrumb-item v-for="(item) in levellist" :key="item.path">
+            <a @click.prevent="handleLick(item)">{{ item.meta.title }}</a>
+        </el-breadcrumb-item>
     </el-breadcrumb>
 </template>
 
@@ -13,14 +11,54 @@ export default {
     data() {
         return {
             levellist: null
-        }
+        };
     },
     watch: {
         $route() {
-            // console.log(this.$route);
+            this.getBreadcrumb();
         }
+    },
+    methods: {
+        getBreadcrumb() {
+            let matched = this.$route.matched.filter(item => {
+                return item.meta && item.meta.title;
+            });
+
+            const first = matched[0];
+
+            if (!this.isDashboard(first)) {
+                matched = [
+                    {
+                        path: "/dashboard",
+                        meta: {
+                            title: "首页"
+                        }
+                    }
+                ].concat(matched);
+            }
+
+            this.levellist = matched.filter(item => {
+                return (
+                    item.meta &&
+                    item.meta.title &&
+                    item.meta.breadcrumb !== false
+                );
+            });
+        },
+        isDashboard(route) {
+            const name = route && route.meta.title;
+
+            if (!name) return false;
+            return name.trim() === "首页";
+        },
+        handleLick(item) {
+            this.$router.push(item.path);
+        }
+    },
+    created() {
+        this.getBreadcrumb();
     }
-}
+};
 </script>
 
 

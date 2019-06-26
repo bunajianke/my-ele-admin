@@ -1,16 +1,18 @@
 <template>
     <div class="tags-view-container">
-        <scroll-panel class="tags-view-wrapper">
+        <scroll-panel class="tags-view-wrapper" ref="scrollPanel">
             <router-link
-                v-for="(item, index) in list"
-                :key="index"
-                class="tags-view-item"
+                v-for="(item) in views"
+                :key="item.path"
                 tag="span"
-                :to="{ path: '/' }"
+                ref="tag"
+                :to="{ path: item.path, query: item.query, fullPath: item.fullPath }"
+                class="tags-view-item"
+                :class="isActive(item) ? 'active' : ''"
             >
-                {{item}}
-                <span>
-                    <i class="el-icon-close" @click.prevent="closeSelectedTag"></i>
+                {{item.meta.title}}
+                <span v-if="!item.meta.affix">
+                    <i class="el-icon-close" @click.prevent="closeSelectedTag(item)"></i>
                 </span>
             </router-link>
         </scroll-panel>
@@ -19,19 +21,96 @@
 
 <script>
 import ScrollPanel from "./ScrollPanel";
+import path from 'path'
+import { mapGetters } from "vuex";
 export default {
     components: {
         ScrollPanel
     },
     data() {
         return {
-            list: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14]
+            affixTags: []
         };
     },
     methods: {
-        closeSelectedTag() {
-            console.log("close");
+        closeSelectedTag(view) {
+            this.$store.dispatch('tagview/deleteView', view)
+        },
+        addTags() {
+            const { name } = this.$route
+            if(name) {
+                this.$store.dispatch('tagview/addView', this.$route)
+            }
+
+            return false
+        },
+        filterAffixTags(routes, basePath = '/') {
+            let tags = []
+            routes.forEach(route => {
+                if(route.meta && route.meta.affix) {
+                    const tagPath = path.resolve(basePath,  route.path)
+                    tags.push({
+                        fullPath: tagPath,
+                        path: tagPath,
+                        name: route.name,
+                        meta: {
+                            ...route.meta
+                        }
+                    })
+                }
+                
+                if(route.children) {
+                    const tmpTags = this.filterAffixTags(route.children, route.path)
+                    
+                    if(tmpTags.length >= 1) {
+                        tags = [ ...tags, ...tmpTags ]
+                    }
+                }
+            })
+            return tags;
+        },
+        initTags() {
+            const affixTags = this.affixTags = this.filterAffixTags(this.routes)
+            affixTags.push(this.$route)
+
+            for(const tag of affixTags) {
+                if(tag.name) {
+                    this.$store.dispatch('tagview/addVisitedView', tag)
+                }
+            }
+        },
+        isActive(tag) {
+            return tag.path === this.$route.path
+        },
+        moveToCurrentTag() {
+            const tags = this.$refs.tag
+            // console.log(this.$refs.scrollPanel);
+            
+            this.$nextTick(() => {
+                for(const tag of tags) {
+                    if(tag.to.path === this.$route.path) {
+                        // console.log(this.$route.path);
+                        
+                    }
+                    
+                }
+            })
         }
+    },
+    computed: {
+        ...mapGetters({
+            routes: 'permission_routes',
+            views: 'vistiedViews'
+        })
+    },
+    watch: {
+        $route() {
+            this.addTags()
+            this.moveToCurrentTag()
+        }
+    },
+    mounted() {
+        this.initTags()
     }
 };
 </script>
@@ -51,9 +130,9 @@ export default {
         width: 100%;
         height: 40px;
         .tags-view-item {
-            background-color: #7a57d1;
+            background-color: rgb(166, 131, 175);
             width: 120px;
-            color: #eee;
+            color: #ccc;
             display: inline-block;
             padding-left: 10px;
             height: 100%;
@@ -78,5 +157,9 @@ export default {
             }
         }
     }
+}
+.active {
+    background-color: #7a57d1 !important;
+    color: #eee !important;
 }
 </style>

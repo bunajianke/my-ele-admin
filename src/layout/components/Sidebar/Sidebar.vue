@@ -5,10 +5,8 @@
         </div>
         <el-scrollbar wrap-class="scrollbar-wrapper">
             <el-menu
-                default-active="1"
+                default-active="activeMenu"
                 class="el-menu-vertical-side"
-                @open="handleOpen"
-                @close="handleClose"
                 :collapse="isCollapse"
                 background-color="#393E46"
                 text-color="#fff"
@@ -30,18 +28,7 @@ export default {
         SidebarItem
     },
     data() {
-        return {
-            activeIndex: "1",
-            activeIndex2: "1"
-        };
-    },
-    methods: {
-        handleOpen(key, keyPath) {
-            // console.log(key, keyPath);
-        },
-        handleClose(key, keyPath) {
-            // console.log(key, keyPath);
-        }
+        return {};
     },
     mounted() {
         // console.log(this.permission_routes)
@@ -50,6 +37,11 @@ export default {
         ...mapGetters(["sidebar", "permission_routes"]),
         isCollapse() {
             return !this.sidebar.opened;
+        },
+        activeMenu() {
+            console.log(this.$route.path);
+            
+            return this.$route.path
         }
     }
 };

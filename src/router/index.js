@@ -12,7 +12,8 @@ export const baseRoutes = [
     redirect: "/dashboard",
     hidden: false,
     meta: {
-      title: "首页"
+      title: "首页",
+      naCache: true
     },
     children: [
       {
@@ -20,7 +21,8 @@ export const baseRoutes = [
         name: "dashboard",
         component: () => import("@/views/dashboard"),
         meta: {
-          title: "仪表盘"
+          title: "仪表盘",
+          naCache: true
         }
       }
     ]
@@ -56,10 +58,12 @@ export const asyncRoutes = [
     children: [
       {
         path: "index",
+        name: 'baseIcon',
         component: () => import("@/views/icon/icon"),
         meta: {
           title: "基础图标",
-          roles: ["admin"]
+          roles: ["admin"],
+          affix: true
         }
       }
     ]
@@ -76,6 +80,7 @@ export const asyncRoutes = [
     children: [
       {
         path: "/permission/page",
+        name: 'permissionPage',
         component: () => import("@/views/permission/page"),
         meta: {
           title: "权限页面",
@@ -84,6 +89,7 @@ export const asyncRoutes = [
       },
       {
         path: "/permission/role",
+        name: 'permissionRole',
         component: () => import("@/views/permission/role"),
         meta: {
           title: "权限角色",
@@ -98,16 +104,18 @@ export const asyncRoutes = [
     component: Layout,
     meta: {
       title: "表格",
-      roles: ["admin", "editors"]
+      roles: ["admin", "editors"],
     },
     redirect: "/table/index",
     children: [
       {
         path: "/table/index",
+        name: 'baseTable',
         component: () => import("@/views/table/table"),
         meta: {
           title: "基础表格",
-          roles: ["admin"]
+          roles: ["admin"],
+          affix: true
         }
       }
     ]

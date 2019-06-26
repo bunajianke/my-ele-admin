@@ -21,7 +21,7 @@
 import AppMain from "./components/AppMain";
 import Sidebar from "./components/Sidebar/Sidebar";
 import Header from "./components/Header";
-import TagView from './components/TagView/tagview'
+import TagView from './components/TagView/TagView'
 export default {
     components: {
         AppMain,

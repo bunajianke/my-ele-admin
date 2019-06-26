@@ -20,7 +20,7 @@ router.beforeEach(async (to, from, next) => {
       // const hasRoles = store.getters.roles && store.getters.roles.length > 0;
       const hasRoles = store.state.user.roles && store.state.user.roles.length > 0;
 
-      // console.log(store.state.user.roles);
+      // console.log(store.getters);
       
       if (hasRoles && store.getters.roles) {
         // console.log('has roles');

@@ -2,7 +2,7 @@
     <div v-if="!item.hidden" class="menu-wrapper">
         <el-menu-item
             v-if="hasOneShowingChild(item.children, item) && (!onlyOneChild.children || onlyOneChild.noShowingChildren) && !item.alwaysShow"
-            :index="resolvePath(item.path)"
+            :index="resolvePath(onlyOneChild.path)"
         >
             <i class="el-icon-menu"></i>
             <span slot="title">{{item.meta.title}}</span>

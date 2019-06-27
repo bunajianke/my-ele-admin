@@ -10,7 +10,7 @@ export const baseRoutes = [
     path: "/",
     component: Layout,
     redirect: "/dashboard",
-    hidden: false,
+    hidden: true,
     meta: {
       title: "首页",
       naCache: true
@@ -22,7 +22,8 @@ export const baseRoutes = [
         component: () => import("@/views/dashboard"),
         meta: {
           title: "仪表盘",
-          naCache: true
+          naCache: true,
+          affix: true
         }
       }
     ]
@@ -63,7 +64,7 @@ export const asyncRoutes = [
         meta: {
           title: "基础图标",
           roles: ["admin"],
-          affix: true
+          // affix: true
         }
       }
     ]
@@ -115,7 +116,7 @@ export const asyncRoutes = [
         meta: {
           title: "基础表格",
           roles: ["admin"],
-          affix: true
+          // affix: true
         }
       }
     ]
@@ -126,7 +127,7 @@ export const asyncRoutes = [
     component: Layout,
     alwaysShow: true,
     meta: {
-      title: "菜单 嵌套",
+      title: "菜单嵌套",
       roles: ["admin"]
     },
     redirect: "/nest/index",
@@ -142,7 +143,7 @@ export const asyncRoutes = [
         },
         children: [
           {
-            path: '/nest/nest',
+            path: '/nest/nest-1',
             name: 'nest-1-1',
             meta: {
               title: '嵌套一1',

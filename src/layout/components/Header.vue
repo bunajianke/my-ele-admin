@@ -1,7 +1,6 @@
 <template>
     <el-row type="flex" justify="center">
         <el-col :span="1">
-            <!-- <el-button class="menu-toggle-btn" type="primary" round @click="toggleSidebar">{{ sidebar.opened | text }}</el-button> -->
             <i class="el-icon-s-fold" :class="{ 'menu-active': !sidebar.opened }" @click="toggleSidebar"></i>
         </el-col>
         <el-col :span="13">
@@ -9,12 +8,12 @@
         </el-col>
         <el-col :span="10">
             <el-menu
-                :default-active="activeIndex2"
+                default-active="1"
                 class="el-menu-main"
                 mode="horizontal"
-                background-color="#393E46"
+                :background-color="style.headerBg"
                 text-color="#fff"
-                active-text-color="#ffd04b"
+                :active-text-color="style.headerAct"
             >
                 <el-menu-item index="1">处理中心</el-menu-item>
                 <el-submenu index="2">
@@ -35,15 +34,13 @@
 <script>
 import { mapActions, mapGetters } from "vuex";
 import Breakcrumb from '@/components/Breakcrumb'
+import style from '@/styles/variables.scss'
 export default {
     components: {
         Breakcrumb
     },
     data() {
-        return {
-            activeIndex: "1",
-            activeIndex2: "1",
-        };
+        return {};
     },
     methods: {
         ...mapActions({
@@ -51,7 +48,10 @@ export default {
         })
     },
     computed: {
-        ...mapGetters(["sidebar"])
+        ...mapGetters(["sidebar"]),
+        style() {
+            return style
+        }
     },
     filters: {
         text: (val) => {

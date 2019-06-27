@@ -5,12 +5,12 @@
         </div>
         <el-scrollbar wrap-class="scrollbar-wrapper">
             <el-menu
-                default-active="activeMenu"
+                :default-active="activeMenu"
                 class="el-menu-vertical-side"
                 :collapse="isCollapse"
-                background-color="#393E46"
+                :background-color="style.sidebarBg"
                 text-color="#fff"
-                active-text-color="#ffd04b"
+                :active-text-color="style.sidebarActive"
                 :router="true"
             >
                 <SidebarItem v-for="(route) in permission_routes" :key="route.path" :item="route" :base-path="route.path" />
@@ -22,6 +22,7 @@
 <script>
 import { mapGetters } from "vuex";
 import SidebarItem from './SidebarItem'
+import style from '@/styles/variables.scss'
 export default {
     name: "Sidebar",
     components: {
@@ -38,10 +39,11 @@ export default {
         isCollapse() {
             return !this.sidebar.opened;
         },
-        activeMenu() {
-            console.log(this.$route.path);
-            
+        activeMenu() {            
             return this.$route.path
+        },
+        style() {
+            return style
         }
     }
 };
@@ -53,7 +55,7 @@ export default {
     min-height: 400px;
 }
 .side-wrapper {
-    height: calc(100vh - 116px);
+    height: calc(100vh - 60px);
 }
 .el-menu-vertical-side {
     height: 100%;

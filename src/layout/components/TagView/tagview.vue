@@ -9,6 +9,7 @@
                 :to="{ path: item.path, query: item.query, fullPath: item.fullPath }"
                 class="tags-view-item"
                 :class="isActive(item) ? 'active' : ''"
+                @click.middle.native="closeSelectedTag(item)"
             >
                 {{item.meta.title}}
                 <span v-if="!item.meta.affix">
@@ -34,7 +35,20 @@ export default {
     },
     methods: {
         closeSelectedTag(view) {
-            this.$store.dispatch('tagview/deleteView', view)
+            
+            // 记录当前点击的标签页在标签页数组的位置
+            const index = this.views.indexOf(view);            
+            this.$store.dispatch('tagview/deleteView', view).then(({ visitedViews }) => {
+                if(this.isActive(view)) {
+
+                    // 跳转到最后一个标签页
+                    // this.toLastView(visitedViews, view)
+
+                    // 跳转到左边的标签页
+                    this.toLeftView(index, visitedViews)
+                }
+            })
+            
         },
         addTags() {
             const { name } = this.$route
@@ -71,7 +85,7 @@ export default {
         },
         initTags() {
             const affixTags = this.affixTags = this.filterAffixTags(this.routes)
-            affixTags.push(this.$route)
+            this.affixTags = affixTags.push(this.$route)
 
             for(const tag of affixTags) {
                 if(tag.name) {
@@ -95,6 +109,24 @@ export default {
                     
                 }
             })
+        },
+        toLastView(visitedViews, view) {            
+            const latestView = visitedViews.slice(-1)[0]
+            
+            if(latestView) {
+                this.$router.push(latestView.path)
+            } else {
+                this.$router.push('/')
+            }
+        },
+        toLeftView(index, visitedViews) {
+            if(visitedViews[index - 1]) {
+                this.$router.push(visitedViews[index-1].path)
+            } else if(visitedViews.length === 1) {
+                this.$router.push(visitedViews[0].path)
+            } else {
+                this.$router.push('/')
+            }
         }
     },
     computed: {
@@ -121,7 +153,6 @@ export default {
     background-color: #fff;
     width: 100%;
     padding: 6px 10px 0;
-    box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.5);
     overflow: hidden;
     box-sizing: border-box;
     white-space: nowrap;
@@ -140,7 +171,7 @@ export default {
             cursor: pointer;
             box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.5);
             border-radius: 2px 2px 0 0;
-            margin: 0 2px;
+            margin: 6px 4px;
             &:hover .el-icon-close {
                 opacity: 1;
             }

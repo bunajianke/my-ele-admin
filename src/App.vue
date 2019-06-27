@@ -29,4 +29,7 @@ export default {
 .el-scrollbar__thumb {
     background-color: rgba(33, 52, 88, 0.45) !important;
 }
+.tagview-container > .el-scrollbar__bar.is-vertical, .el-scrollbar__bar.is-vertical>div {
+    display: none;
+}
 </style>

@@ -7,6 +7,11 @@ import { getToken } from "@/utils/auth";
 
 const whiteList = ["/login"];
 
+NProgress.configure({
+  speed: 1500,
+  showSpinner: false
+});
+
 router.beforeEach(async (to, from, next) => {
   NProgress.start();
 

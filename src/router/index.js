@@ -7,6 +7,17 @@ Vue.use(Router);
 
 export const baseRoutes = [
   {
+    path: '/redirect',
+    component: Layout,
+    hidden: true,
+    children: [
+      {
+        path: '/redirect/:path*',
+        component: () => import('@/views/redirect/redirect')
+      }
+    ]
+  },
+  {
     path: "/",
     component: Layout,
     redirect: "/dashboard",
@@ -49,6 +60,28 @@ export const baseRoutes = [
 ];
 
 export const asyncRoutes = [
+  {
+    path: '/profile',
+    component: Layout,
+    name: 'profile',
+    redirect: '/profile/index',
+    hidden: true,
+    meta: {
+      title: '账号信息',
+      roles: ['admin']
+    },
+    children: [
+      {
+        path: 'index',
+        name: 'baseInfo',
+        component: () => import('@/views/profile/index'),
+        meta: {
+          title: '基本信息',
+          roles: ['admin']
+        }
+      }
+    ]
+  },
   {
     path: "/icon",
     component: Layout,

@@ -37,6 +37,13 @@ const mutations = {
                 break
             }
         }
+    },
+    DEL_ALL_VISITED_VIEWS: (state) => {
+        const affixTags = state.visitedViews.filter(tag => tag.meta.affix)
+        state.visitedViews = affixTags
+    },
+    DEL_ALL_CACHED_VIEWS: (state) => {
+        state.cachedViews = []
     }
 }
 
@@ -72,7 +79,30 @@ const actions = {
             commit("DEL_CACHED_VIEW", view);
             resolve([...state.cachedViews])
         })
+    },
+    deleteAllViews({ dispatch, state }, view) {
+        return new Promise(resolve => {
+            dispatch("deleteAllVisitedViews", view);
+            dispatch("deleteAllCachedViews", view);
+            resolve({
+                visitedViews: [...state.visitedViews],
+                cachedViews: [...state.cachedViews]
+            })
+        })
+    },
+    deleteAllVisitedViews({ commit, state }, view) {
+        return new Promise(resolve => {
+            commit("DEL_ALL_VISITED_VIEWS", view);
+            resolve([...state.visitedViews])
+        })
+    },
+    deleteAllCachedViews({ commit, state }, view) {
+        return new Promise(resolve => {
+            commit("DEL_ALL_CACHED_VIEWS", view);
+            resolve([...state.cachedViews])
+        })
     }
+
 }
 
 export default {

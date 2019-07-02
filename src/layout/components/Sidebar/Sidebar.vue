@@ -9,7 +9,7 @@
                 class="el-menu-vertical-side"
                 :collapse="isCollapse"
                 :background-color="style.sidebarBg"
-                text-color="#fff"
+                :text-color="style.sidebarTextColor"
                 :active-text-color="style.sidebarActive"
                 :router="true"
             >

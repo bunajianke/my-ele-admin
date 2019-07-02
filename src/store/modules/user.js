@@ -4,7 +4,7 @@ import { getToken, setToken, removeToken } from "@/utils/auth";
 const state = {
   token: getToken(),
   name: "",
-  avatar: "",
+  avatar: "https://gss0.baidu.com/9fo3dSag_xI4khGko9WTAnF6hhy/zhidao/wh%3D600%2C800/sign=fad0ada2229759ee4a0568cd82cb6f2e/83025aafa40f4bfb09c757fb074f78f0f736180e.jpg",
   introduction: "",
   roles: []
 };

@@ -8,23 +8,23 @@
         </el-col>
         <el-col :span="10">
             <el-menu
-                default-active="1"
+                :default-active="active"
                 class="el-menu-main"
                 mode="horizontal"
                 :background-color="style.headerBg"
-                text-color="#fff"
+                :text-color="style.headerTextColor"
                 :active-text-color="style.headerAct"
+                :router="true"
             >
-                <el-menu-item index="1">处理中心</el-menu-item>
+                <!-- <el-menu-item index="/table/index">处理中心</el-menu-item>
                 <el-submenu index="2">
                     <template slot="title">我的工作台</template>
                     <el-menu-item index="/dashboard">选项1</el-menu-item>
-                    <el-menu-item index="2-2">选项2</el-menu-item>
+                    <el-menu-item index="/icon/index">选项2</el-menu-item>
                     <el-menu-item index="2-3">选项3</el-menu-item>
-                </el-submenu>
-                <el-menu-item index="3" disabled>消息中心</el-menu-item>
-                <el-menu-item index="4">
-                    <a href="https://www.ele.me" target="_blank">订单管理</a>
+                </el-submenu> -->
+                <el-menu-item index="/profile/index">
+                    <img class="avatar" :src="avatar" alt="">
                 </el-menu-item>
             </el-menu>
         </el-col>
@@ -48,14 +48,12 @@ export default {
         })
     },
     computed: {
-        ...mapGetters(["sidebar"]),
+        ...mapGetters(["sidebar", "avatar"]),
         style() {
             return style
-        }
-    },
-    filters: {
-        text: (val) => {
-            return val ? '收起' : '展开';
+        },
+        active() {
+            return this.$route.path
         }
     }
 };
@@ -81,6 +79,11 @@ export default {
 }
 .menu-active {
     transform: rotate(-180deg);
+}
+.avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 4px;
 }
 </style>
 

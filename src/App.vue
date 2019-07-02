@@ -10,7 +10,9 @@ export default {
 };
 </script>
 
-<style>
+<style lang="scss">
+@import '@/styles/variables.scss';
+
 * {
     padding: 0;
     margin: 0;
@@ -31,5 +33,11 @@ export default {
 }
 .tagview-container > .el-scrollbar__bar.is-vertical, .el-scrollbar__bar.is-vertical>div {
     display: none;
+}
+
+/* progressbar */
+#nprogress .bar {
+    background: $bar-color !important;
+    height: 3px;
 }
 </style>

@@ -1,5 +1,6 @@
-import { login, getUserInfo } from "@/api/user";
+import { login, getUserInfo, logout } from "@/api/user";
 import { getToken, setToken, removeToken } from "@/utils/auth";
+import router, { resetRouter } from "@/router";
 
 const state = {
   token: getToken(),
@@ -62,6 +63,20 @@ const actions = {
               resolve(res.data)
             }
         });
+    })
+  },
+  userLogout({ commit }) {
+    return new Promise((resolve, reject) => {
+      logout().then((res) => {
+        if(res && res.code === 20000) {
+          commit("SET_TOKEN", '');
+          commit("SET_ROLES", []);
+          removeToken();  // 移除用户 token
+          resetRouter();  // 重置路由表
+
+          resolve();
+        }
+      })
     })
   }
 };

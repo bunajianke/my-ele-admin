@@ -23,9 +23,14 @@
                     <el-menu-item index="/icon/index">选项2</el-menu-item>
                     <el-menu-item index="2-3">选项3</el-menu-item>
                 </el-submenu> -->
-                <el-menu-item index="/profile/index">
-                    <img class="avatar" :src="avatar" alt="">
-                </el-menu-item>
+
+                <el-submenu index="/profile/index">
+                    <template slot="title">
+                        <img class="avatar" :src="avatar" alt="">
+                    </template>
+                    <el-menu-item index="/profile/index">个人资料</el-menu-item>
+                    <el-menu-item @click="logout" index="">退出登录</el-menu-item>
+                </el-submenu>
             </el-menu>
         </el-col>
     </el-row>
@@ -44,8 +49,14 @@ export default {
     },
     methods: {
         ...mapActions({
-            toggleSidebar: 'app/toggleSidebar'
-        })
+            toggleSidebar: 'app/toggleSidebar',
+            userLogout: 'user/userLogout'
+        }),
+        async logout() {
+            await this.userLogout()
+            this.$router.push('/login?redirect=' + this.$route.fullPath)
+            
+        }
     },
     computed: {
         ...mapGetters(["sidebar", "avatar"]),

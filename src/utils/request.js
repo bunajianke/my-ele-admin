@@ -11,6 +11,9 @@ server.interceptors.request.use(config => {
 
     if(store.getters.token) {
         config.headers["x-token"] = store.getters.token;
+        // config.headers["uid"] = "7918270C-CDA9-4392-9E91-5AC3954071AB";
+        // config.headers["token"] = "335919e409";
+        // config.headers["Content-Type"] = "multipart/form-data";
     }
 
     return config

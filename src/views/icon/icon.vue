@@ -13,5 +13,9 @@
 div {
     height: 2000px;
 }
+.svg-icon {
+    width: 3em;
+    height: 3em;
+}
 </style>
 

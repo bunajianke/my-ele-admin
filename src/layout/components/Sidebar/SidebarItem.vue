@@ -4,14 +4,12 @@
             v-if="hasOneShowingChild(item.children, item) && (!onlyOneChild.children || onlyOneChild.noShowingChildren) && !item.alwaysShow"
             :index="resolvePath(onlyOneChild.path)"
         >
-            <i class="el-icon-menu"></i>
-            <span slot="title">{{item.meta.title}}</span>
+            <Item :icon="onlyOneChild.meta.icon || (item.meta&&item.meta.icon)" :title="onlyOneChild.meta.title" />
         </el-menu-item>
 
         <el-submenu v-else :index="resolvePath(item.path)" popper-append-to-body>
             <template slot="title">
-                <i class="el-icon-menu"></i>
-                <span>{{item.meta.title}}</span>
+                <Item v-if="item.meta" :icon="item.meta && item.meta.icon" :title="item.meta.title" />
             </template>
             <sidebar-item
                 v-for="child in item.children"
@@ -27,8 +25,12 @@
 
 <script>
 import path from "path";
+import Item from './Item'
 export default {
     name: "SidebarItem",
+    components: {
+        Item
+    },
     props: {
         item: {
             type: Object,

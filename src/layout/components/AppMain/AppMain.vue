@@ -25,5 +25,7 @@ export default {
     box-sizing: border-box;
     overflow: scroll;
     overflow-x: hidden;
+    padding: 10px;
+    box-sizing: border-box;
 }
 </style>

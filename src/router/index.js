@@ -68,7 +68,8 @@ export const asyncRoutes = [
     hidden: true,
     meta: {
       title: '账号信息',
-      roles: ['admin']
+      roles: ['admin'],
+      icon: 'icon'
     },
     children: [
       {
@@ -87,7 +88,8 @@ export const asyncRoutes = [
     component: Layout,
     redirect: "/icon/index",
     meta: {
-      title: "图标"
+      title: "图标",
+      icon: 'icon'
     },
     children: [
       {
@@ -107,7 +109,8 @@ export const asyncRoutes = [
     name: "permission",
     component: Layout,
     meta: {
-      title: "权限"
+      title: "权限",
+      icon: 'permission'
     },
     redirect: "/permission/page",
     alwaysShow: true,
@@ -139,6 +142,7 @@ export const asyncRoutes = [
     meta: {
       title: "表格",
       roles: ["admin", "editors"],
+      icon: 'table'
     },
     redirect: "/table/index",
     children: [
@@ -161,7 +165,8 @@ export const asyncRoutes = [
     alwaysShow: true,
     meta: {
       title: "菜单嵌套",
-      roles: ["admin"]
+      roles: ["admin"],
+      icon: 'nest'
     },
     redirect: "/nest/index",
     children: [

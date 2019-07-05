@@ -1,7 +1,8 @@
 <template>
     <el-breadcrumb separator-class="el-icon-arrow-right">
         <el-breadcrumb-item v-for="(item) in levellist" :key="item.path">
-            <a @click.prevent="handleLick(item)">{{ item.meta.title }}</a>
+            <a v-if="!item.children" @click.prevent="handleLick(item)">{{ item.meta.title }}</a>
+            <span v-else @click.prevent="handleLick(item)">{{ item.meta.title }}</span>
         </el-breadcrumb-item>
     </el-breadcrumb>
 </template>
@@ -24,6 +25,8 @@ export default {
                 return item.meta && item.meta.title;
             });
 
+            console.log(matched);
+            
             const first = matched[0];
 
             if (!this.isDashboard(first)) {
@@ -47,7 +50,6 @@ export default {
         },
         isDashboard(route) {
             const name = route && route.meta.title;
-
             if (!name) return false;
             return name.trim() === "首页";
         },

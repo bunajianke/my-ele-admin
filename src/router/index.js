@@ -61,6 +61,41 @@ export const baseRoutes = [
 
 export const asyncRoutes = [
   {
+    path: '/article',
+    component: Layout,
+    name: 'article',
+    redirect: '/article/index',
+    hidden: false,
+    meta: {
+      title: '文章',
+      roles: ['admin'],
+      icon: 'icon'
+    },
+    children: [
+      {
+        path: 'index',
+        name: 'articleList',
+        component: () => import('@/views/article/article'),
+        meta: {
+          title: '文章列表',
+          roles: ['admin'],
+          icon: ''
+        }
+      },
+      {
+        path: '/article/detail/:id',
+        name: 'articleDetail',
+        component: () => import('@/views/article/detail'),
+        hidden: true,
+        meta: {
+          title: '文章详情',
+          roles: ['admin'],
+          icon: ''
+        }
+      }
+    ]
+  },
+  {
     path: '/profile',
     component: Layout,
     name: 'profile',
@@ -100,6 +135,35 @@ export const asyncRoutes = [
           title: "基础图标",
           roles: ["admin"],
           // affix: true
+        }
+      }
+    ]
+  },
+  {
+    path: '/upload',
+    component: Layout,
+    redirect: '/upload/index',
+    meta: {
+      title: '上传',
+      icon: 'permission'
+    },
+    children: [
+      {
+        path: 'index',
+        name: 'baseUpload',
+        component: () => import("@/views/upload/index"),
+        meta: {
+          title: '图片上传',
+          roles: ['admin']
+        }
+      },
+      {
+        path: 'file',
+        name: 'baseFile',
+        component: () => import("@/views/upload/file"),
+        meta: {
+          title: '文件上传',
+          roles: ['admin']
         }
       }
     ]

@@ -22,7 +22,6 @@ server.interceptors.request.use(config => {
 })
 
 server.interceptors.response.use(response => {
-    // console.log(response)
     return response.data;
 }, error => {
     console.error(error)

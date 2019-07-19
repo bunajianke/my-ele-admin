@@ -25,8 +25,6 @@ export default {
                 return item.meta && item.meta.title;
             });
 
-            console.log(matched);
-            
             const first = matched[0];
 
             if (!this.isDashboard(first)) {
